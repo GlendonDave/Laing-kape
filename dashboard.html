@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ice Coffee Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-logo">☕ Ice Coffee</div>
+    <nav>
+      <ul>
+        <li class="active" id="tab-dashboard"><i class="fa fa-chart-pie"></i> Dashboard</li>
+        <li id="tab-flavors"><i class="fa fa-mug-hot"></i> Flavors</li>
+        <li id="tab-orders"><i class="fa fa-shopping-cart"></i> Orders</li>
+        <li id="tab-locations"><i class="fa fa-map-marker-alt"></i> Locations</li>
+        <li id="tab-recommended"><i class="fa fa-star"></i> Recommended</li>
+        <li id="tab-bestseller"><i class="fa fa-fire"></i> Best Seller</li>
+        <li id="tab-settings"><i class="fa fa-cog"></i> Settings</li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="dashboard-main">
+    <header class="dashboard-header">
+      <h1>Ice Coffee Dashboard</h1>
+      <div class="user-info">
+        <span class="user-name">Welcome, Admin</span>
+        <img src="image/coffee-hero.png" alt="User" class="user-avatar">
+        <button class="btn logout-btn" id="logoutBtn">Logout</button>
+      </div>
+    </header>
+    <section class="dashboard-cards">
+      <!-- Dashboard Tab -->
+      <div class="dashboard-card dashboard-section" id="section-dashboard">
+        <h2>Sales Analytics</h2>
+        <div class="dashboard-graphs">
+          <div class="dashboard-graph">
+            <canvas id="salesBarChart" width="300" height="180"></canvas>
+          </div>
+          <div class="dashboard-graph">
+            <canvas id="revenueLineChart" width="300" height="180"></canvas>
+          </div>
+          <div class="dashboard-graph">
+            <canvas id="customersPieChart" width="220" height="180"></canvas>
+          </div>
+        </div>
+      </div>
+      <!-- Flavors Tab -->
+      <div class="dashboard-card dashboard-section" id="section-flavors" style="display:none">
+        <h2>All Coffee Flavors</h2>
+        <div class="flavor-lists">
+          <div class="flavor-list-block">
+            <h3>New Flavors</h3>
+            <ul>
+              <li>Salted Caramel Cold Brew</li>
+              <li>Brown Sugar Iced Latte</li>
+            </ul>
+          </div>
+          <div class="flavor-list-block">
+            <h3>Recent Flavors</h3>
+            <ul>
+              <li>Classic Iced Coffee</li>
+              <li>Mocha</li>
+              <li>Caramel Macchiato</li>
+              <li>Vanilla Latte</li>
+              <li>Hazelnut</li>
+              <li>Matcha</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Orders Tab -->
+      <div class="dashboard-card dashboard-section" id="section-orders" style="display:none">
+        <h2>Orders</h2>
+        <table class="orders-table">
+          <thead>
+            <tr><th>Order ID</th><th>Customer</th><th>Item</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>#1001</td><td>Jane Doe</td><td>Classic Iced Coffee</td><td>Completed</td></tr>
+            <tr><td>#1002</td><td>John Smith</td><td>Mocha</td><td>In Progress</td></tr>
+            <tr><td>#1003</td><td>Mary Lee</td><td>Salted Caramel Cold Brew</td><td>Pending</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Locations Tab -->
+      <div class="dashboard-card dashboard-section" id="section-locations" style="display:none">
+        <h2>Store Locations</h2>
+        <ul class="location-list">
+          <li>Manila - 123 Coffee St.</li>
+          <li>Cebu - 456 Brew Ave.</li>
+          <li>Davao - 789 Bean Blvd.</li>
+          <li>Baguio - 101 Chill Rd.</li>
+        </ul>
+      </div>
+      <!-- Recommended Tab -->
+      <div class="dashboard-card dashboard-section" id="section-recommended" style="display:none">
+        <h2>Recommended Items</h2>
+        <ul class="recommend-list">
+          <li>Salted Caramel Cold Brew</li>
+          <li>Brown Sugar Iced Latte</li>
+          <li>Mocha</li>
+        </ul>
+      </div>
+      <!-- Best Seller Tab -->
+      <div class="dashboard-card dashboard-section" id="section-bestseller" style="display:none">
+        <h2>Top 3 Best Sellers</h2>
+        <ol class="bestseller-list">
+          <li>Classic Iced Coffee</li>
+          <li>Mocha</li>
+          <li>Caramel Macchiato</li>
+        </ol>
+      </div>
+      <!-- Settings Tab -->
+      <div class="dashboard-card dashboard-section" id="section-settings" style="display:none">
+        <h2>Settings</h2>
+        <button class="btn settings-btn">Update Profile</button>
+        <button class="btn settings-btn">Change Password</button>
+      </div>
+    </section>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Require login: redirect to login if not logged in
+    if (!localStorage.getItem('loggedIn')) {
+      window.location.href = 'login.html';
+    }
+    // Logout logic
+    document.getElementById('logoutBtn').onclick = function() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'index.html';
+    }
+    // Tab switching logic
+    const tabs = [
+      { tab: 'dashboard', section: 'section-dashboard' },
+      { tab: 'flavors', section: 'section-flavors' },
+      { tab: 'orders', section: 'section-orders' },
+      { tab: 'locations', section: 'section-locations' },
+      { tab: 'recommended', section: 'section-recommended' },
+      { tab: 'bestseller', section: 'section-bestseller' },
+      { tab: 'settings', section: 'section-settings' }
+    ];
+    tabs.forEach(({ tab, section }) => {
+      const tabEl = document.getElementById('tab-' + tab);
+      if (tabEl) {
+        tabEl.addEventListener('click', () => {
+          // Remove active from all
+          tabs.forEach(({ tab: t }) => {
+            const el = document.getElementById('tab-' + t);
+            if (el) el.classList.remove('active');
+          });
+          tabEl.classList.add('active');
+          // Hide all sections
+          document.querySelectorAll('.dashboard-section').forEach(s => s.style.display = 'none');
+          // Show selected section
+          const sec = document.getElementById(section);
+          if (sec) sec.style.display = '';
+        });
+      }
+    });
+    // Chart.js graphs for Dashboard
+    // Bar Chart: Sales
+    new Chart(document.getElementById('salesBarChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Sales (Cups)',
+          data: [500, 700, 800, 650, 900, 1100],
+          backgroundColor: '#f3c623',
+          borderRadius: 8
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    // Line Chart: Revenue
+    new Chart(document.getElementById('revenueLineChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Revenue (₱)',
+          data: [15000, 21000, 18000, 22000, 25000, 30000],
+          borderColor: '#6b4226',
+          backgroundColor: 'rgba(107,66,38,0.08)',
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#f3c623',
+          pointRadius: 5
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+    // Pie Chart: Customers
+    new Chart(document.getElementById('customersPieChart').getContext('2d'), {
+      type: 'pie',
+      data: {
+        labels: ['New', 'Returning', 'VIP'],
+        datasets: [{
+          label: 'Customers',
+          data: [120, 80, 30],
+          backgroundColor: ['#f3c623', '#bfa77a', '#6b4226']
+        }]
+      },
+      options: {
+        plugins: { legend: { position: 'bottom' } }
+      }
+    });
+  </script>
+</body>
+</html>

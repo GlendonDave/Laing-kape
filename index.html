@@ -12,23 +12,24 @@
     <nav class="navbar">
       <div class="logo">☕ Coffee Bliss</div>
       <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="login.html">Login</a></li>
-        <li><a href="signup.html" class="btn">Sign Up</a></li>
+        <li><a href="signup.html" class="btn nav-btn">Sign Up</a></li>
       </ul>
     </nav>
   </header>
 
-   <!-- Hero Section -->
+  <!-- Hero Section -->
   <section class="hero">
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-text">
         <h1>Freshly Brewed Happiness</h1>
         <p>Discover the taste of authentic coffee, crafted with love.</p>
-        <a href="signup.html" class="btn">Get Started</a>
+        <a href="signup.html" class="btn hero-btn">Get Started</a>
       </div>
       <div class="hero-img">
-        <img src="image/coffee-heros.png" alt="Coffee Cup">
+        <img src="image/coffee-heros.png" alt="Coffee Cup" loading="lazy">
       </div>
     </div>
   </section>
@@ -36,13 +37,13 @@
   <!-- About Section -->
   <section class="about">
     <div class="about-content">
-      <div class="about-img">
-        <img src="image/about-coffee.png" alt="About Coffee Bliss">
-      </div>
       <div class="about-text">
         <h2>About Us</h2>
-        <p>At Coffee Bliss, we believe coffee is more than a drink – it’s an experience. 
+        <p>At Coffee Bliss, we believe coffee is more than a drink – it’s an experience.<br>
            From bean to cup, we ensure every sip brings warmth, energy, and a touch of joy.</p>
+      </div>
+      <div class="about-img">
+        <img src="image/about-coffee.png" alt="About Coffee Bliss" loading="lazy">
       </div>
     </div>
   </section>
@@ -53,17 +54,22 @@
     <h2>Our Favorites</h2>
     <div class="menu-grid">
       <div class="card">
-        <img src="image/espresso.jpg" alt="Espresso">
+        <img src="image/rum.jpg" alt="Espresso" class="menu-img" loading="lazy">
         <h3>Espresso</h3>
         <p>Rich and bold flavor, the perfect energy booster.</p>
       </div>
       <div class="card">
-        <img src="image/cappuccino.jpg" alt="Cappuccino">
+        <img src="image/cappuccino.jpg" alt="Cappuccino" class="menu-img" loading="lazy">
         <h3>Cappuccino</h3>
         <p>Classic Italian delight topped with creamy froth.</p>
       </div>
       <div class="card">
-        <img src="image/iced-coffee.jpg" alt="Iced Coffee">
+        <img src="image/bugnaws.jpg" alt="Iced Coffee" class="menu-img" loading="lazy">
+        <h3>Iced Coffee</h3>
+        <p>Refreshing and smooth, served chilled to perfection.</p>
+      </div>
+      <div class="card">
+        <img src="image/gamay.jpg" alt="Iced Coffee" class="menu-img" loading="lazy">
         <h3>Iced Coffee</h3>
         <p>Refreshing and smooth, served chilled to perfection.</p>
       </div>
@@ -74,16 +80,18 @@
   <section class="cta">
     <h2>Join Our Coffee Lovers Community</h2>
     <p>Sign up today and get exclusive offers, discounts, and updates.</p>
-    <a href="signup.html" class="btn">Sign Up Now</a>
+    <a href="signup.html" class="btn cta-btn">Sign Up Now</a>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 Coffee Bliss | All rights reserved.</p>
-    <div class="socials">
-      <a href="#"><img src="image/facebook.jpg" alt="Facebook"></a>
-      <a href="#"><img src="image/instagram.jpg" alt="Instagram"></a>
-      <a href="#"><img src="image/twitter.jpg" alt="Twitter"></a>
+    <div class="footer-content">
+      <p>&copy; 2025 Coffee Bliss | All rights reserved.</p>
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><img src="image/facebook.jpg" alt="Facebook" loading="lazy"></a>
+        <a href="#" aria-label="Instagram"><img src="image/instagram.jpg" alt="Instagram" loading="lazy"></a>
+        <a href="#" aria-label="Twitter"><img src="image/twitter.jpg" alt="Twitter" loading="lazy"></a>
+      </div>
     </div>
   </footer>
 </body>
